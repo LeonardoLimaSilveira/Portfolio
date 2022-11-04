@@ -169,7 +169,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="my-10">
+        <section className="">
           <div>
             <h3 className="text-3xl py-1 dark:text-white">Portifólio</h3>
             <p className="dark:text-white my-2">
@@ -407,7 +407,7 @@ export default function Home() {
               {' '}
               <Image alt="image desc" src={wildbeast} />
             </div>
-            <div className="keen-slider__slide number-slide11">
+            <div className="keen-slider__slide number-slide11 mb-10">
               {' '}
               <Image alt="image desc" src={dragDrop} />
             </div>
