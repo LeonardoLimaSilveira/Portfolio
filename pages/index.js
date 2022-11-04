@@ -47,6 +47,7 @@ export default function Home() {
                 <a
                   href="https://drive.google.com/file/d/1aWwubNFxswb77chC_XdAqVFUsVe_yL4A/view"
                   target="_blank"
+                  rel="noopener"
                   className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded ml-8"
                 >
                   Currículo
@@ -67,12 +68,17 @@ export default function Home() {
             </p>
           </div>
           <div className="text-5xl flex  justify-center gap-16 py-3 text-gray-600 dark:text-gray-400">
-            <a href="https://github.com/LeonardoLimaSilveira" target="_blank">
+            <a
+              href="https://github.com/LeonardoLimaSilveira"
+              target="_blank"
+              rel="noopener"
+            >
               <AiFillGithub className="cursor-pointer" />
             </a>
             <a
               href="https://www.linkedin.com/in/leonardo-lima-42596b235/"
               target="_blank"
+              rel="noopener"
             >
               <AiFillLinkedin className="cursor-pointer" />
             </a>
@@ -114,6 +120,7 @@ export default function Home() {
               <a
                 href="https://todoappfacebook-o5fp15bss-leonardolimasilveira.vercel.app"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={todoappReact}
@@ -128,6 +135,7 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/Caravan-bootstap"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={caravan}
@@ -142,6 +150,7 @@ export default function Home() {
               <a
                 href="https://interactivecardreact-p2k54mngl-leonardolimasilveira.vercel.app"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={interactiveC}
@@ -156,6 +165,7 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/E-commerceByLeonardoLS"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={ecommerce}
@@ -170,6 +180,7 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/e-Sports"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={NLW}
@@ -184,6 +195,7 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/QRCODEGenerator"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={qrcode}
@@ -198,6 +210,7 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/Text-speech"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={TextSpeech}
@@ -212,6 +225,7 @@ export default function Home() {
               <a
                 href="https://introsec-mo0wu4ves-leonardolimasilveira.vercel.app"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={introsection}
@@ -226,6 +240,7 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/AdviceGenerator"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={advicegenerator}
@@ -240,6 +255,7 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/wildbeast"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={wildbeast}
@@ -254,6 +270,7 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/drag-and-drop"
                 target="_blank"
+                rel="noopener"
               >
                 <Image
                   src={dragDrop}
