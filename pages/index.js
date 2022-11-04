@@ -18,10 +18,19 @@ import interactiveC from '../public/interactiveC.png'
 import wildbeast from '../public/wildbeast.png'
 import dragDrop from '../public/drag and drop.png'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true)
+
+  useEffect(() => {
+    const key = Object.keys(localStorage)
+    console.log(key)
+    if (key.includes('theme')) {
+      setDarkMode(JSON.parse(localStorage.getItem('theme')))
+    }
+  }, [])
+
   return (
     <div className={darkMode ? 'dark' : ''}>
       <Head>
@@ -38,7 +47,8 @@ export default function Home() {
               <li>
                 <BsFillMoonStarsFill
                   onClick={() => {
-                    setDarkMode(!darkMode)
+                    window.localStorage.setItem('theme', !darkMode)
+                    setDarkMode(JSON.parse(localStorage.getItem('theme')))
                   }}
                   className="cursor-pointer text-2xl"
                 />
@@ -139,7 +149,7 @@ export default function Home() {
             </div>
             <div className="basis-1/4 flex-1 cursor-pointer">
               <a
-                href="https://github.com/LeonardoLimaSilveira/Caravan-bootstap"
+                href="https://leonardolimasilveira.github.io/Caravan-bootstap"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -171,7 +181,7 @@ export default function Home() {
             </div>
             <div className="basis-1/4 flex-1 cursor-pointer">
               <a
-                href="https://github.com/LeonardoLimaSilveira/E-commerceByLeonardoLS"
+                href="https://leonardolimasilveira.github.io/E-commerceByLeonardoLS"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -203,7 +213,7 @@ export default function Home() {
             </div>
             <div className="basis-1/4 flex-1 cursor-pointer">
               <a
-                href="https://github.com/LeonardoLimaSilveira/QRCODEGenerator"
+                href="https://leonardolimasilveira.github.io/QRCODEGenerator/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -219,7 +229,7 @@ export default function Home() {
             </div>
             <div className="basis-1/4 flex-1 cursor-pointer">
               <a
-                href="https://github.com/LeonardoLimaSilveira/Text-speech"
+                href="https://leonardolimasilveira.github.io/Text-speech"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -251,7 +261,7 @@ export default function Home() {
             </div>
             <div className="basis-1/4 flex-1 cursor-pointer">
               <a
-                href="https://github.com/LeonardoLimaSilveira/AdviceGenerator"
+                href="https://leonardolimasilveira.github.io/AdviceGenerator"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -267,7 +277,7 @@ export default function Home() {
             </div>
             <div className="basis-1/4 flex-1 cursor-pointer">
               <a
-                href="https://github.com/LeonardoLimaSilveira/wildbeast"
+                href="https://leonardolimasilveira.github.io/wildbeast"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -283,7 +293,7 @@ export default function Home() {
             </div>
             <div className="basis-1/4 flex-1 cursor-pointer">
               <a
-                href="https://github.com/LeonardoLimaSilveira/drag-and-drop"
+                href="https://leonardolimasilveira.github.io/drag-and-drop"
                 target="_blank"
                 rel="noopener noreferrer"
               >
