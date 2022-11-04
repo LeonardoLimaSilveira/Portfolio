@@ -47,7 +47,7 @@ export default function Home() {
                 <a
                   href="https://drive.google.com/file/d/1aWwubNFxswb77chC_XdAqVFUsVe_yL4A/view"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded ml-8"
                 >
                   Currículo
@@ -71,26 +71,31 @@ export default function Home() {
             <a
               href="https://github.com/LeonardoLimaSilveira"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
             >
               <AiFillGithub className="cursor-pointer" />
             </a>
             <a
               href="https://www.linkedin.com/in/leonardo-lima-42596b235/"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
             >
               <AiFillLinkedin className="cursor-pointer" />
             </a>
           </div>
           <div className="relative mx-auto  bg-gradient-to-b from-teal-500 rounded-full w-80 h-80 mt-20 overflow-hidden md:h-96 md:w-96 ">
-            <Image src={deved} layout="fill" objectFit="cover" />
+            <Image
+              alt="image description"
+              src={deved}
+              layout="fill"
+              objectFit="cover"
+            />
           </div>
         </section>
         <section>
           <div className=" ">
             <div className="text-center flex justify-center items-center flex-col shadow-lg p-10 rounded-xl my-10 dark:bg-gray-800">
-              <Image src={code} height={100} />
+              <Image alt="image description" src={code} height={100} />
               <h3 className="text-lg font-medium pt-8 pb-2 dark:text-white">
                 Experiência
               </h3>
@@ -120,9 +125,10 @@ export default function Home() {
               <a
                 href="https://todoappfacebook-o5fp15bss-leonardolimasilveira.vercel.app"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={todoappReact}
                   className="rounded-lg object-cover"
                   width={'100%'}
@@ -135,9 +141,10 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/Caravan-bootstap"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={caravan}
                   className="rounded-lg object-cover"
                   width={'100%'}
@@ -150,9 +157,10 @@ export default function Home() {
               <a
                 href="https://interactivecardreact-p2k54mngl-leonardolimasilveira.vercel.app"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={interactiveC}
                   className="rounded-lg object-cover"
                   width={'100%'}
@@ -165,9 +173,10 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/E-commerceByLeonardoLS"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={ecommerce}
                   className="rounded-lg object-cover"
                   width={'100%'}
@@ -180,9 +189,10 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/e-Sports"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={NLW}
                   className="rounded-lg object-cover"
                   width={'100%'}
@@ -195,9 +205,10 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/QRCODEGenerator"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={qrcode}
                   className="rounded-lg object-cover"
                   width={'100%'}
@@ -210,9 +221,10 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/Text-speech"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={TextSpeech}
                   className="rounded-lg object-cover"
                   width={'100%'}
@@ -225,9 +237,10 @@ export default function Home() {
               <a
                 href="https://introsec-mo0wu4ves-leonardolimasilveira.vercel.app"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={introsection}
                   className="rounded-lg object-cover"
                   width={'100%'}
@@ -240,9 +253,10 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/AdviceGenerator"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={advicegenerator}
                   className="rounded-lg object-cover"
                   width={'100%'}
@@ -255,9 +269,10 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/wildbeast"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={wildbeast}
                   className="rounded-lg object-cover"
                   width={'100%'}
@@ -270,9 +285,10 @@ export default function Home() {
               <a
                 href="https://github.com/LeonardoLimaSilveira/drag-and-drop"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 <Image
+                  alt="image description"
                   src={dragDrop}
                   className="rounded-lg object-cover"
                   width={'100%'}
