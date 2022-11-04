@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import { useKeenSlider } from 'keen-slider/react'
+import 'keen-slider/keen-slider.min.css'
 
 import { BsFillMoonStarsFill } from 'react-icons/bs'
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai'
@@ -20,12 +22,56 @@ import dragDrop from '../public/drag and drop.png'
 
 import { useState, useEffect } from 'react'
 
+function ThumbnailPlugin(mainRef) {
+  return slider => {
+    function removeActive() {
+      slider.slides.forEach(slide => {
+        slide.classList.remove('active')
+      })
+    }
+    function addActive(idx) {
+      slider.slides[idx].classList.add('active')
+    }
+
+    function addClickEvents() {
+      slider.slides.forEach((slide, idx) => {
+        slide.addEventListener('click', () => {
+          if (mainRef.current) mainRef.current.moveToIdx(idx)
+        })
+      })
+    }
+
+    slider.on('created', () => {
+      if (!mainRef.current) return
+      addActive(slider.track.details.rel)
+      addClickEvents()
+      mainRef.current.on('animationStarted', main => {
+        removeActive()
+        const next = main.animator.targetIdx || 0
+        addActive(main.track.absToRel(next))
+        slider.moveToIdx(Math.min(slider.track.details.maxIdx, next))
+      })
+    })
+  }
+}
+
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true)
-
+  const [sliderRef, instanceRef] = useKeenSlider({
+    initial: 0
+  })
+  const [thumbnailRef] = useKeenSlider(
+    {
+      initial: 0,
+      slides: {
+        perView: 4,
+        spacing: 10
+      }
+    },
+    [ThumbnailPlugin(instanceRef)]
+  )
   useEffect(() => {
     const key = Object.keys(localStorage)
-    console.log(key)
     if (key.includes('theme')) {
       setDarkMode(JSON.parse(localStorage.getItem('theme')))
     }
@@ -123,7 +169,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section>
+        <section className="my-10">
           <div>
             <h3 className="text-3xl py-1 dark:text-white">Portifólio</h3>
             <p className="dark:text-white my-2">
@@ -131,181 +177,239 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-col gap-10 py-10 lg:flex-row lg:flex-wrap  ">
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://todoappfacebook-o5fp15bss-leonardolimasilveira.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={todoappReact}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+            <div ref={sliderRef} className="keen-slider">
+              <div className="keen-slider__slide number-slide1">
+                <a
+                  href="https://todoappfacebook-o5fp15bss-leonardolimasilveira.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    alt="image description"
+                    src={todoappReact}
+                    className="rounded-lg object-cover"
+                    width={'100%'}
+                    height={'100%'}
+                    layout="responsive"
+                  />
+                </a>
+              </div>
+              <div className="keen-slider__slide number-slide2">
+                <div className="cursor-pointer">
+                  <a
+                    href="https://leonardolimasilveira.github.io/Caravan-bootstap"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      alt="image description"
+                      src={caravan}
+                      className="rounded-lg object-cover"
+                      width={'100%'}
+                      height={'100%'}
+                      layout="responsive"
+                    />
+                  </a>
+                </div>
+              </div>
+              <div className="keen-slider__slide number-slide3">
+                {' '}
+                <div className="basis-1/4 flex-1 cursor-pointer">
+                  <a
+                    href="https://interactivecardreact-p2k54mngl-leonardolimasilveira.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      alt="image description"
+                      src={interactiveC}
+                      className="rounded-lg object-cover"
+                      width={'100%'}
+                      height={'100%'}
+                      layout="responsive"
+                    />
+                  </a>
+                </div>
+              </div>
+              <div className="keen-slider__slide number-slide4">
+                {' '}
+                <div className="basis-1/4 flex-1 cursor-pointer">
+                  <a
+                    href="https://leonardolimasilveira.github.io/E-commerceByLeonardoLS"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      alt="image description"
+                      src={ecommerce}
+                      className="rounded-lg object-cover"
+                      width={'100%'}
+                      height={'100%'}
+                      layout="responsive"
+                    />
+                  </a>
+                </div>
+              </div>
+              <div className="keen-slider__slide number-slide5">
+                {' '}
+                <a
+                  href="https://github.com/LeonardoLimaSilveira/e-Sports"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    alt="image description"
+                    src={NLW}
+                    className="rounded-lg object-cover"
+                    width={'100%'}
+                    height={'100%'}
+                    layout="responsive"
+                  />
+                </a>
+              </div>
+              <div className="keen-slider__slide number-slide6">
+                <a
+                  href="https://leonardolimasilveira.github.io/QRCODEGenerator/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    alt="image description"
+                    src={qrcode}
+                    className="rounded-lg object-cover"
+                    width={'100%'}
+                    height={'100%'}
+                    layout="responsive"
+                  />
+                </a>
+              </div>
+              <div className="keen-slider__slide number-slide7">
+                <a
+                  href="https://leonardolimasilveira.github.io/Text-speech"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    alt="image description"
+                    src={TextSpeech}
+                    className="rounded-lg object-cover"
+                    width={'100%'}
+                    height={'100%'}
+                    layout="responsive"
+                  />
+                </a>
+              </div>
+              <div className="keen-slider__slide number-slide8">
+                <a
+                  href="https://introsec-mo0wu4ves-leonardolimasilveira.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    alt="image description"
+                    src={introsection}
+                    className="rounded-lg object-cover"
+                    width={'100%'}
+                    height={'100%'}
+                    layout="responsive"
+                  />
+                </a>
+              </div>
+              <div className="keen-slider__slide number-slide9">
+                <a
+                  href="https://leonardolimasilveira.github.io/AdviceGenerator"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    alt="image description"
+                    src={advicegenerator}
+                    className="rounded-lg object-cover"
+                    width={'100%'}
+                    height={'100%'}
+                    layout="responsive"
+                  />
+                </a>
+              </div>
+              <div className="keen-slider__slide number-slide10">
+                <a
+                  href="https://leonardolimasilveira.github.io/wildbeast"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    alt="image description"
+                    src={wildbeast}
+                    className="rounded-lg object-cover"
+                    width={'100%'}
+                    height={'100%'}
+                    layout="responsive"
+                  />
+                </a>
+              </div>
+
+              <div className="keen-slider__slide number-slide11">
+                <a
+                  href="https://leonardolimasilveira.github.io/drag-and-drop"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    alt="image description"
+                    src={dragDrop}
+                    className="rounded-lg object-cover"
+                    width={'100%'}
+                    height={'100%'}
+                    layout="responsive"
+                  />
+                </a>
+              </div>
             </div>
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://leonardolimasilveira.github.io/Caravan-bootstap"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={caravan}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+          </div>
+
+          <div ref={thumbnailRef} className="keen-slider thumbnail">
+            <div className="keen-slider__slide number-slide1">
+              <Image alt="image desc" src={todoappReact} />
             </div>
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://interactivecardreact-p2k54mngl-leonardolimasilveira.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={interactiveC}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+            <div className="keen-slider__slide number-slide2">
+              {' '}
+              <Image alt="image desc" src={caravan} />
             </div>
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://leonardolimasilveira.github.io/E-commerceByLeonardoLS"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={ecommerce}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+            <div className="keen-slider__slide number-slide3">
+              {' '}
+              <Image alt="image desc" src={interactiveC} />
             </div>
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://github.com/LeonardoLimaSilveira/e-Sports"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={NLW}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+            <div className="keen-slider__slide number-slide4">
+              {' '}
+              <Image alt="image desc" src={ecommerce} />
             </div>
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://leonardolimasilveira.github.io/QRCODEGenerator/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={qrcode}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+            <div className="keen-slider__slide number-slide5">
+              {' '}
+              <Image alt="image desc" src={NLW} />
             </div>
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://leonardolimasilveira.github.io/Text-speech"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={TextSpeech}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+            <div className="keen-slider__slide number-slide6">
+              {' '}
+              <Image alt="image desc" src={qrcode} />
             </div>
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://introsec-mo0wu4ves-leonardolimasilveira.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={introsection}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+            <div className="keen-slider__slide number-slide7">
+              {' '}
+              <Image alt="image desc" src={TextSpeech} />
             </div>
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://leonardolimasilveira.github.io/AdviceGenerator"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={advicegenerator}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+            <div className="keen-slider__slide number-slide8">
+              {' '}
+              <Image alt="image desc" src={introsection} />
             </div>
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://leonardolimasilveira.github.io/wildbeast"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={wildbeast}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+            <div className="keen-slider__slide number-slide9">
+              {' '}
+              <Image alt="image desc" src={advicegenerator} />
             </div>
-            <div className="basis-1/4 flex-1 cursor-pointer">
-              <a
-                href="https://leonardolimasilveira.github.io/drag-and-drop"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  alt="image description"
-                  src={dragDrop}
-                  className="rounded-lg object-cover"
-                  width={'100%'}
-                  height={'100%'}
-                  layout="responsive"
-                />
-              </a>
+            <div className="keen-slider__slide number-slide10">
+              {' '}
+              <Image alt="image desc" src={wildbeast} />
+            </div>
+            <div className="keen-slider__slide number-slide11">
+              {' '}
+              <Image alt="image desc" src={dragDrop} />
             </div>
           </div>
         </section>
