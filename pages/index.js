@@ -1,10 +1,7 @@
 import Head from 'next/head'
-import { useKeenSlider } from 'keen-slider/react'
-import 'keen-slider/keen-slider.min.css'
 
 import { BsFillMoonStarsFill } from 'react-icons/bs'
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai'
-
 import Image from 'next/image'
 import deved from '../public/dev-ed-wave.png'
 import code from '../public/code.png'
@@ -22,54 +19,10 @@ import dragDrop from '../public/drag and drop.png'
 
 import { useState, useEffect } from 'react'
 
-function ThumbnailPlugin(mainRef) {
-  return slider => {
-    function removeActive() {
-      slider.slides.forEach(slide => {
-        slide.classList.remove('active')
-      })
-    }
-    function addActive(idx) {
-      slider.slides[idx].classList.add('active')
-    }
-
-    function addClickEvents() {
-      slider.slides.forEach((slide, idx) => {
-        slide.addEventListener('click', () => {
-          if (mainRef.current) mainRef.current.moveToIdx(idx)
-        })
-      })
-    }
-
-    slider.on('created', () => {
-      if (!mainRef.current) return
-      addActive(slider.track.details.rel)
-      addClickEvents()
-      mainRef.current.on('animationStarted', main => {
-        removeActive()
-        const next = main.animator.targetIdx || 0
-        addActive(main.track.absToRel(next))
-        slider.moveToIdx(Math.min(slider.track.details.maxIdx, next))
-      })
-    })
-  }
-}
-
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true)
-  const [sliderRef, instanceRef] = useKeenSlider({
-    initial: 0
-  })
-  const [thumbnailRef] = useKeenSlider(
-    {
-      initial: 0,
-      slides: {
-        perView: 4,
-        spacing: 10
-      }
-    },
-    [ThumbnailPlugin(instanceRef)]
-  )
+  const [language, setLanguage] = useState(true)
+
   useEffect(() => {
     const key = Object.keys(localStorage)
     if (key.includes('theme')) {
@@ -100,13 +53,21 @@ export default function Home() {
                 />
               </li>
               <li>
+                <span
+                  onClick={() => setLanguage(!language)}
+                  className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 cursor-pointer rounded ml-8"
+                >
+                  {language ? 'English' : 'Português'}
+                </span>
+              </li>
+              <li>
                 <a
                   href="https://drive.google.com/file/d/1aWwubNFxswb77chC_XdAqVFUsVe_yL4A/view"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded ml-8"
                 >
-                  Currículo
+                  {language ? 'Currículo' : 'Resume'}
                 </a>
               </li>
             </ul>
@@ -116,11 +77,12 @@ export default function Home() {
               Leonardo de Lima
             </h2>
             <h3 className="text-2xl py-2 dark:text-white md:text-3xl">
-              Front-end Developer
+              {language ? 'Front-end Developer' : 'Software Engineer'}
             </h3>
             <p className="text-md py-5 leading-8 text-gray-800 md:text-xl max-w-xl mx-auto dark:text-gray-200">
-              Olá, sou desenvolvedor front-end junior. Navegue pela página para
-              conhecer mais sobre mim e meus projetos!
+              {language
+                ? 'Olá, sou desenvolvedor front-end junior. Navegue pela página para conhecer mais sobre mim e meus projetos!'
+                : "Hello, I'm a junior front-end developer. Browse the page to learn more about me and my projects!"}
             </p>
           </div>
           <div className="text-5xl flex  justify-center gap-16 py-3 text-gray-600 dark:text-gray-400">
@@ -153,263 +115,231 @@ export default function Home() {
             <div className="text-center flex justify-center items-center flex-col shadow-lg p-10 rounded-xl my-10 dark:bg-gray-800">
               <Image alt="image description" src={code} height={100} />
               <h3 className="text-lg font-medium pt-8 pb-2 dark:text-white">
-                Experiência
+                {language ? 'Experiência' : 'Experience'}
               </h3>
               <p className="py-2 dark:text-gray-200">
-                Desenvolvedor Front-end Junior com conhecimentos em HTML, CSS,
-                JS, REACTJS, REACT ROUTER, JQUERY, GIT, TAILWINDCSS, BOOTSTRAP,
-                TYPESCRIPT, STYLED-COMPONENTS
+                {language
+                  ? 'Desenvolvedor Front-end Junior com conhecimentos em HTML, CSS, JS, REACTJS, REACT ROUTER, JQUERY, GIT, TAILWINDCSS, BOOTSTRAP, TYPESCRIPT, STYLED-COMPONENTS'
+                  : 'SE with knowledge in HTML, CSS, JS, REACTJS, REACT ROUTER, JQUERY, GIT, TAILWINDCSS, BOOTSTRAP, TYPESCRIPT, STYLED-COMPONENTS'}
               </p>
               <p className="text-gray-800 py-1 dark:text-gray-200">
                 {' '}
-                Busco usar todos os meus conhecimentos em prol da empresa e
-                colaboradores, tentando sempre estar evoluindo e atualizado
-                naquilo que os nossos clientes precisam.
+                {language
+                  ? 'Busco usar todos os meus conhecimentos em prol da empresa e colaboradores, tentando sempre estar evoluindo e atualizado naquilo que os nossos clientes precisam.'
+                  : 'I seek to use all my knowledge for the benefit of the company and collaborators, always trying to be evolving and updated on what our customers need.'}
               </p>
             </div>
           </div>
         </section>
         <section className="">
           <div>
-            <h3 className="text-3xl py-1 dark:text-white">Portifólio</h3>
+            <h3 className="text-3xl py-1 dark:text-white">
+              {language ? 'Portifólio' : 'Portfolio'}
+            </h3>
             <p className="dark:text-white my-2">
-              Aqui abaixo estão alguns de meus projetos
+              {language
+                ? 'Aqui abaixo estão alguns de meus projetos'
+                : 'Below you will find some of my projects.'}
             </p>
           </div>
           <div className="flex flex-col gap-10 py-10 lg:flex-row lg:flex-wrap  ">
-            <div ref={sliderRef} className="keen-slider">
-              <div className="keen-slider__slide number-slide1">
-                <a
-                  href="https://todoappfacebook-o5fp15bss-leonardolimasilveira.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    alt="image description"
-                    src={todoappReact}
-                    className="rounded-lg object-cover"
-                    width={'100%'}
-                    height={'100%'}
-                    layout="responsive"
-                  />
-                </a>
-              </div>
-              <div className="keen-slider__slide number-slide2">
-                <div className="cursor-pointer">
-                  <a
-                    href="https://leonardolimasilveira.github.io/Caravan-bootstap"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      alt="image description"
-                      src={caravan}
-                      className="rounded-lg object-cover"
-                      width={'100%'}
-                      height={'100%'}
-                      layout="responsive"
-                    />
-                  </a>
-                </div>
-              </div>
-              <div className="keen-slider__slide number-slide3">
-                {' '}
-                <div className="basis-1/4 flex-1 cursor-pointer">
-                  <a
-                    href="https://interactivecardreact-p2k54mngl-leonardolimasilveira.vercel.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      alt="image description"
-                      src={interactiveC}
-                      className="rounded-lg object-cover"
-                      width={'100%'}
-                      height={'100%'}
-                      layout="responsive"
-                    />
-                  </a>
-                </div>
-              </div>
-              <div className="keen-slider__slide number-slide4">
-                {' '}
-                <div className="basis-1/4 flex-1 cursor-pointer">
-                  <a
-                    href="https://leonardolimasilveira.github.io/E-commerceByLeonardoLS"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      alt="image description"
-                      src={ecommerce}
-                      className="rounded-lg object-cover"
-                      width={'100%'}
-                      height={'100%'}
-                      layout="responsive"
-                    />
-                  </a>
-                </div>
-              </div>
-              <div className="keen-slider__slide number-slide5">
-                {' '}
-                <a
-                  href="https://github.com/LeonardoLimaSilveira/e-Sports"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    alt="image description"
-                    src={NLW}
-                    className="rounded-lg object-cover"
-                    width={'100%'}
-                    height={'100%'}
-                    layout="responsive"
-                  />
-                </a>
-              </div>
-              <div className="keen-slider__slide number-slide6">
-                <a
-                  href="https://leonardolimasilveira.github.io/QRCODEGenerator/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    alt="image description"
-                    src={qrcode}
-                    className="rounded-lg object-cover"
-                    width={'100%'}
-                    height={'100%'}
-                    layout="responsive"
-                  />
-                </a>
-              </div>
-              <div className="keen-slider__slide number-slide7">
-                <a
-                  href="https://leonardolimasilveira.github.io/Text-speech"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    alt="image description"
-                    src={TextSpeech}
-                    className="rounded-lg object-cover"
-                    width={'100%'}
-                    height={'100%'}
-                    layout="responsive"
-                  />
-                </a>
-              </div>
-              <div className="keen-slider__slide number-slide8">
-                <a
-                  href="https://introsec-mo0wu4ves-leonardolimasilveira.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    alt="image description"
-                    src={introsection}
-                    className="rounded-lg object-cover"
-                    width={'100%'}
-                    height={'100%'}
-                    layout="responsive"
-                  />
-                </a>
-              </div>
-              <div className="keen-slider__slide number-slide9">
-                <a
-                  href="https://leonardolimasilveira.github.io/AdviceGenerator"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    alt="image description"
-                    src={advicegenerator}
-                    className="rounded-lg object-cover"
-                    width={'100%'}
-                    height={'100%'}
-                    layout="responsive"
-                  />
-                </a>
-              </div>
-              <div className="keen-slider__slide number-slide10">
-                <a
-                  href="https://leonardolimasilveira.github.io/wildbeast"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    alt="image description"
-                    src={wildbeast}
-                    className="rounded-lg object-cover"
-                    width={'100%'}
-                    height={'100%'}
-                    layout="responsive"
-                  />
-                </a>
-              </div>
-
-              <div className="keen-slider__slide number-slide11">
-                <a
-                  href="https://leonardolimasilveira.github.io/drag-and-drop"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    alt="image description"
-                    src={dragDrop}
-                    className="rounded-lg object-cover"
-                    width={'100%'}
-                    height={'100%'}
-                    layout="responsive"
-                  />
-                </a>
-              </div>
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://todoappfacebook-o5fp15bss-leonardolimasilveira.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={todoappReact}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 REACTJS
+              </span>
             </div>
-          </div>
-
-          <div ref={thumbnailRef} className="keen-slider thumbnail">
-            <div className="keen-slider__slide number-slide1">
-              <Image alt="image desc" src={todoappReact} />
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://interactivecardreact-p2k54mngl-leonardolimasilveira.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={interactiveC}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 REACTJS
+              </span>
             </div>
-            <div className="keen-slider__slide number-slide2">
-              {' '}
-              <Image alt="image desc" src={caravan} />
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://introsec-mo0wu4ves-leonardolimasilveira.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={introsection}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 REACTJS
+              </span>
             </div>
-            <div className="keen-slider__slide number-slide3">
-              {' '}
-              <Image alt="image desc" src={interactiveC} />
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://leonardolimasilveira.github.io/E-commerceByLeonardoLS"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={ecommerce}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 JAVASCRIPT JQUERY
+              </span>
             </div>
-            <div className="keen-slider__slide number-slide4">
-              {' '}
-              <Image alt="image desc" src={ecommerce} />
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://leonardolimasilveira.github.io/Caravan-bootstap"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={caravan}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 JAVASCRIPT BOOTSTRAP
+              </span>
             </div>
-            <div className="keen-slider__slide number-slide5">
-              {' '}
-              <Image alt="image desc" src={NLW} />
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://github.com/LeonardoLimaSilveira/e-Sports"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={NLW}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 REACTJS NODEJS PRISMA MySQL REACTNATIVE
+              </span>
             </div>
-            <div className="keen-slider__slide number-slide6">
-              {' '}
-              <Image alt="image desc" src={qrcode} />
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://leonardolimasilveira.github.io/Text-speech"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={TextSpeech}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 JAVASCRIPT
+              </span>
             </div>
-            <div className="keen-slider__slide number-slide7">
-              {' '}
-              <Image alt="image desc" src={TextSpeech} />
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://leonardolimasilveira.github.io/QRCODEGenerator/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={qrcode}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 JAVASCRIPT
+              </span>
             </div>
-            <div className="keen-slider__slide number-slide8">
-              {' '}
-              <Image alt="image desc" src={introsection} />
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://leonardolimasilveira.github.io/AdviceGenerator"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={advicegenerator}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 JAVASCRIPT
+              </span>
             </div>
-            <div className="keen-slider__slide number-slide9">
-              {' '}
-              <Image alt="image desc" src={advicegenerator} />
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://leonardolimasilveira.github.io/wildbeast"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={wildbeast}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 CSS GRID
+              </span>
             </div>
-            <div className="keen-slider__slide number-slide10">
-              {' '}
-              <Image alt="image desc" src={wildbeast} />
-            </div>
-            <div className="keen-slider__slide number-slide11 mb-10">
-              {' '}
-              <Image alt="image desc" src={dragDrop} />
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://leonardolimasilveira.github.io/drag-and-drop"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={dragDrop}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 JAVASCRIPT
+              </span>
             </div>
           </div>
         </section>
