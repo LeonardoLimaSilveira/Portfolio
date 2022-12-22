@@ -16,6 +16,7 @@ import introsection from '../public/introsection.png'
 import interactiveC from '../public/interactiveC.png'
 import wildbeast from '../public/wildbeast.png'
 import dragDrop from '../public/drag and drop.png'
+import countriesapi from '../public/countries-api.png'
 
 import { useState, useEffect } from 'react'
 
@@ -191,6 +192,24 @@ export default function Home() {
                   height={'100%'}
                   layout="responsive"
                   src={introsection}
+                />
+              </a>
+              <span className="dark:text-gray-400 my-3 flex justify-center">
+                HTML5 CSS3 REACTJS
+              </span>
+            </div>
+            <div className="basis-1/3 flex-1 ">
+              <a
+                href="https://countries-api-green.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  className="rounded-lg object-cover"
+                  width={'100%'}
+                  height={'100%'}
+                  layout="responsive"
+                  src={countriesapi}
                 />
               </a>
               <span className="dark:text-gray-400 my-3 flex justify-center">
